@@ -1,0 +1,7 @@
+{
+    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "files.associations": {
+        "memory.h": "c",
+        "string.h": "c"
+    }
+}
