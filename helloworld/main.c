@@ -2,7 +2,12 @@
 
 int main()
 {
-    printf("hello world!");
+    int a = 0;
+    int *b = &a;
+    int const *c = b;
+    printf("%d\n", *c);
+    *b = 2;
+    printf("%d\n", *c);
     getchar();
     return 0;
 }
