@@ -28,7 +28,8 @@
             "includePath": [
                 "/usr/include",
                 "/usr/local/include",
-                "${workspaceRoot}"
+                "${workspaceRoot}",
+                "${workspaceRoot}/common/include"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",
@@ -48,7 +49,10 @@
                 "${workspaceRoot}",
                 "C:/MinGW/lib/gcc/mingw32/6.3.0/include",
                 "C:/MinGW/include",
-                "C:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed"
+                "C:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed",
+                "${workspaceRoot}/common/include",
+                "${workspaceRoot}/common/include/GL/*",
+                "${workspaceRoot}/common/include/GLFW/*"
             ],
             "defines": [
                 "_DEBUG",
@@ -59,7 +63,9 @@
                 "path": [
                     "C:/MinGW/lib/gcc/mingw32/6.3.0/include",
                     "C:/MinGW/lib/gcc/mingw32/6.3.0/include-fixed",
-                    "C:/MinGW/include/*"
+                    "C:/MinGW/include/*",
+                    "${workspaceRoot}/common/include/GL/*",
+                    "${workspaceRoot}/common/include/GLFW/*"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""

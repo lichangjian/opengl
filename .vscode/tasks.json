@@ -8,9 +8,12 @@
             "type": "shell",
             "command": "gcc",
             "args": [
-                "${file}",
+                "helloworld/main.c helloworld/render.c",
+                "-I common/include/",
+                "-L common/win32/",
+                "-lopengl32 -lglew32 -lglfw3 -lm -lgdi32",
                 "-std=c99",
-                "-o bin/a.exe",
+                "-o helloworld/a.exe",
                 "-g"
             ]
         },
