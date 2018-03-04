@@ -1,5 +1,6 @@
 bin/*
-.vscode/launch.json
 .DS_Store
 */bin
-
+*.dsYM
+*.app
+.vscode/launch.json

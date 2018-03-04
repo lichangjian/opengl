@@ -51,15 +51,35 @@ int main(void)
     GLuint vs = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vs, 1, &vshader, NULL);
     glCompileShader(vs);
+    GLint succ;
+    GLchar infoLog[512];
+    glGetShaderiv(vs, GL_COMPILE_STATUS, &succ);
+    if(!succ)
+    {
+        glGetShaderInfoLog(vs, 512, NULL, infoLog);
+        printf("%s", infoLog);
+    }
 
     GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fs, 1, &fshader, NULL);
     glCompileShader(fs);
+    glGetShaderiv(fs, GL_COMPILE_STATUS, &succ);
+    if(!succ)
+    {
+        glGetShaderInfoLog(fs, 512, NULL, infoLog);
+        printf("%s", infoLog);
+    }
 
     GLuint shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vs);
     glAttachShader(shaderProgram, fs);
     glLinkProgram(shaderProgram);
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &succ);
+    if(!succ)
+    {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        printf("%s", infoLog);
+    }
     glDeleteShader(vs);
     glDeleteShader(fs);
 
