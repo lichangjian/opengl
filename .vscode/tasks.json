@@ -31,13 +31,13 @@
             "type": "shell",
             "command": "gcc",
             "args": [
-                "helloworld/main.c",
+                "${fileDirname}/main.c",
                 "-I common/include/",
                 "-L common/osx/",
                 "-lGLEW -lglfw3 -lm",
                 "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo",
                 "-std=c99",
-                "-o helloworld/a.app",
+                "-o ${fileDirname}/bin/a.app",
                 "-g"
             ]
         },
