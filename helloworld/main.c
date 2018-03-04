@@ -3,16 +3,23 @@
 #include <GLFW/glfw3.h>
 
 const char *vshader = "#version 410\n"
-		"in vec3 vp;"
+		"layout (location = 0) in vec3 vp;"
+        "layout (location = 1) in vec3 color;"
+        "out vec4 vertexColor;"
 		"void main () {"
 		"  gl_Position = vec4 (vp, 1.0);"
+        "  vertexColor = vec4 (color, 1.0);"
 		"}";
 const char *fshader = "#version 410\n"
-		"out vec4 frag_colour;"
-		"void main () {"
-		"  frag_colour = vec4 (0.5, 0.2, 0.3, 1.0);"
+		"out vec4 frag_colour;\n"
+        "in vec4 vertexColor;\n"
+		"void main () {\n"
+		"  frag_colour = vertexColor;\n"
 		"}";
-GLfloat points[] = {-1.0f, -0.5f, 0.0f, 1.0f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f};
+GLfloat points[] = {-0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 
+                    0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 
+                    0.0f, 0.5f, 0.0f, 0.0f, 0.0f, 1.0f};
+GLuint indexs[] = {0, 2, 1};
 
 int main(void)
 {
@@ -38,14 +45,24 @@ int main(void)
     GLuint vbo;
     glGenBuffers(1, &vbo); 
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(GL_FLOAT), points, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, 18 * sizeof(GL_FLOAT), points, GL_STATIC_DRAW);
+
+    GLuint ebo;
+    glGenBuffers(1, &ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(GLuint), indexs, GL_STATIC_DRAW);
 
     GLuint vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
-    glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), NULL);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GL_FLOAT), (void*)(3 * sizeof(GL_FLOAT)));
+    glEnableVertexAttribArray(1);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBindVertexArray(0);
 
     GLuint vs = glCreateShader(GL_VERTEX_SHADER);
@@ -57,7 +74,7 @@ int main(void)
     if(!succ)
     {
         glGetShaderInfoLog(vs, 512, NULL, infoLog);
-        printf("%s", infoLog);
+        printf("vs error, %s", infoLog);
     }
 
     GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
@@ -67,7 +84,7 @@ int main(void)
     if(!succ)
     {
         glGetShaderInfoLog(fs, 512, NULL, infoLog);
-        printf("%s", infoLog);
+        printf("fs error, %s", infoLog);
     }
 
     GLuint shaderProgram = glCreateProgram();
@@ -90,7 +107,7 @@ int main(void)
 
         glUseProgram(shaderProgram);
         glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
         glfwSwapBuffers(window);
