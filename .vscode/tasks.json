@@ -4,7 +4,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build",
+            "label": "build_win",
             "type": "shell",
             "command": "gcc",
             "args": [
@@ -25,6 +25,21 @@
                 "${file}",
                 "-S"
             ]
-        }
+        },
+        {
+            "label": "build_mac",
+            "type": "shell",
+            "command": "gcc",
+            "args": [
+                "helloworld/main.c",
+                "-I common/include/",
+                "-L common/osx/",
+                "-lGLEW -lglfw3 -lm",
+                "-framework Cocoa -framework OpenGL -framework IOKit -framework CoreVideo",
+                "-std=c99",
+                "-o helloworld/a.app",
+                "-g"
+            ]
+        },
     ]
 }

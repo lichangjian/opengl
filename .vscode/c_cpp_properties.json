@@ -5,7 +5,10 @@
             "includePath": [
                 "/usr/include",
                 "/usr/local/include",
-                "${workspaceRoot}"
+                "${workspaceRoot}",
+                "${workspaceRoot}/common/include",
+                "${workspaceRoot}/common/include/GL/*",
+                "${workspaceRoot}/common/include/GLFW/*"
             ],
             "defines": [],
             "intelliSenseMode": "clang-x64",
@@ -13,7 +16,10 @@
                 "path": [
                     "/usr/include",
                     "/usr/local/include",
-                    "${workspaceRoot}"
+                    "${workspaceRoot}",
+                    "${workspaceRoot}/common/include",
+                    "${workspaceRoot}/common/include/GL/*",
+                    "${workspaceRoot}/common/include/GLFW/*"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""
